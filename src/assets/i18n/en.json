@@ -1,6 +1,21 @@
 {
+
+  "brand_name": "ERP PRO",
+  "light_theme": "Light Theme",
+  "dark_theme": "Dark Theme",
+  "SEARCH": "Search...",
+  "DASHBOARD": "Dashboard",
+  "ADMINISTRATION": "Administration",
+  "USERS": "Users",
+  "SETTINGS": "Settings",
+  "REPORTS": "Reports",
+  "EMPLOYEES": "Employees",
+  "CUSTOMERS": "Customers",
+  "NEW": "New",
+  "MAIN": "Main",
+
   "copyright": "Copyright © 2026. All rights reserved. Developed by our team",
-  "brand_name": "Maroud",
+  
 
   "ACADMY":{
 
@@ -80,4 +95,5 @@
     "NO_DATA_FOUND": "No data found"
   }
 
+}
 }

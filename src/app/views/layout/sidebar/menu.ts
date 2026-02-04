@@ -12,19 +12,19 @@ export const MENU: MenuItem[] = [
   { id: 3, label: 'our_details', icon: 'tool', link: `${BASE}/aboutUs` },
    {
     id: 4,
-    label: 'hr',
+    label: 'Academy',
     icon: 'users',
     link: `${BASE}/hr`,
     subItems: [
 
           {
-            label: 'HR.COMPANY.TITLE',
+            label: 'Jobs',
             link: '/academy/job',
             bgcolor: 'primary',
           },
 
           {
-            label: 'HR.COMPANY.TITLE',
+            label: 'Users',
             link: '/academy/user',
             bgcolor: 'primary',
           },
