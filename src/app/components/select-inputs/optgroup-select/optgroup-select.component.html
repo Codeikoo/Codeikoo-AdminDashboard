@@ -1,0 +1,25 @@
+<div class="select-optgroup-input mb-3" *ngIf="control">
+    <label for="select-optgroup-input" class="mb-2">
+        {{label|translate}}
+        <span *ngIf="required" class="text-danger">*</span>
+    </label>
+    <ng-select [formControl]="control" [labelForId]="'select-optgroup-input'" [items]="items" [groupBy]="'groupName'"
+        [bindValue]="'id'" (change)="selectedItemChange.emit($event && $event.id ?($event.id):null)"
+        [multiple]="multiple" [searchable]="true" [searchFn]="customSearch">
+
+        <ng-template ng-label-tmp let-item="item">
+            <b>{{ item.name }}</b>
+        </ng-template>
+
+        <ng-template ng-optgroup-tmp let-item="item" let-index="index">
+            {{ item.groupName }}
+        </ng-template>
+
+        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <b>{{ item.name }}</b>
+        </ng-template>
+    </ng-select>
+    <p class="text-danger mt-1 fw-bold text-capitalize" *ngIf="control.touched && control.hasError('required')">
+        {{ 'required_error' | translate:{ label: label | translate } }}
+    </p>
+</div>

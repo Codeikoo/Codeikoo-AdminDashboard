@@ -1,0 +1,17 @@
+.images {
+  .image {
+    position: relative;
+
+    .layout {
+      z-index: 3;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+    }
+
+    &:hover {
+      .layout {
+        opacity: 1;
+      }
+    }
+  }
+}

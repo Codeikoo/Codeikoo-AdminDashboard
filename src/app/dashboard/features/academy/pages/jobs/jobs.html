@@ -1,0 +1,46 @@
+<div class="glopal-header-container">
+  <!-- Header Section -->
+  <!-- <div class="page-header d-flex justify-content-between align-items-center mb-2">
+    <h2 class="cursor-pointer" (click)="refresh()">
+      {{ "INDUSTORYORDER.WC.TITLE" | translate }}
+    </h2>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="onAdd()">
+        <mat-icon>add</mat-icon>
+        {{ "SHARED.Add_NEW" | translate }}
+      </button>
+      <button mat-raised-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        {{ "ITEMS.BUTTONS.REFRESH" | translate }}
+      </button>
+    </div>
+  </div> -->
+
+  <!-- Table Section -->
+  <app-shared-table
+    [columns]="columns()"
+    [data]="workCenters()"
+    [actions]="actions()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="pageSizeOptions()"
+    [totalRecords]="totalRecords()"
+    [currentPage]="currentPage()"
+    [serverSidePagination]="true"
+    [showSearch]="true"
+    [searchPlaceholder]="'INDUSTORYORDER.WC.SEARCH_PLACEHOLDER' | translate"
+    [currntSearch]="searchTxt()"
+    (searchChange)="onSearch($event)"
+    (pageChange)="onPageChange($event)"
+    (editClick)="onEdit($event)"
+    (deleteClick)="onDelete($event)"
+    (detailClick)="onDetails($event)"
+    (viewClick)="onView($event)"
+    (sortChange)="onSort($event)"
+    (paymentDetailClick)="WorkCenterDetail($event)"
+      [title]="'INDUSTORYORDER.WC.TITLE' | translate"
+        (titleClick)="refresh()"
+        (createClick)="onAdd()"
+        (refreshClick)="refresh()"
+  ></app-shared-table>
+
+</div>

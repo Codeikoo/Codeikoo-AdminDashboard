@@ -1,0 +1,83 @@
+{
+  "copyright": "Copyright © 2026. All rights reserved. Developed by our team",
+  "brand_name": "Maroud",
+
+  "ACADMY":{
+
+
+     "JOBS": {
+    "TITEL":"Jobs",
+      "ROUTING": {
+        "CREATE_TITLE": "Create Job",
+        "EDIT_TITLE": "Edit Job"
+      },
+      "FORM": {
+        "TITLE_AR": "Arabic Title",
+        "TITLE_EN": "English Title",
+        "DESCRIPTION_AR": "Arabic Description",
+        "DESCRIPTION_EN": "English Description",
+        "LOCATION": "Location",
+        "EMPLOYMENT_TYPE": "Employment Type",
+        "POSTED_AT": "Posted At",
+        "REQ_AR": "Arabic Requirements",
+        "REQ_EN": "English Requirements",
+        "REQ_ITEM": "Requirement"
+      },
+      "ACTIONS": {
+        "ADD_REQUIREMENT": "Add requirement"
+      },
+      "ERRORS": {
+        "TITLE_AR_REQUIRED": "Arabic title is required",
+        "TITLE_AR_ONLY_AR": "Arabic title must be Arabic only (no English letters)",
+        "TITLE_EN_REQUIRED": "English title is required",
+        "TITLE_EN_ONLY_EN": "English title must be English only (no Arabic letters)",
+        "DESCRIPTION_AR_REQUIRED": "Arabic description is required",
+        "DESCRIPTION_EN_REQUIRED": "English description is required",
+        "LOCATION_REQUIRED": "Location is required",
+        "EMPLOYMENT_TYPE_REQUIRED": "Employment type is required",
+        "POSTED_AT_REQUIRED": "Posted date is required",
+        "REQUIREMENT_REQUIRED": "This requirement is required",
+        "REQ_MIN_ONE": "At least one requirement is required"
+      },
+      "MESSAGES": {
+        "CREATED_SUCCESS": "Job created successfully",
+        "UPDATED_SUCCESS": "Job updated successfully",
+        "ERROR_LOADING": "Error while loading data",
+        "ERROR_SAVING": "Error while saving data"
+      },
+      "EMPLOYMENT_TYPES": {
+        "FULL_TIME": "Full Time",
+        "PART_TIME": "Part Time",
+        "CONTRACT": "Contract",
+        "INTERNSHIP": "Internship"
+      }
+    }
+  },
+  "INDUSTORYORDER": {
+    "WC": {
+      "TABLE": {
+        "NAME": "Job Title",
+        "WC_CODE": "Description",
+        "WC_TYPE": "Location"
+      },
+      "MESSAGES": {
+        "ERROR_LOADING": "Error while loading data",
+        "DELETED_SUCCESS": "Deleted successfully",
+        "ERROR_DELETING": "An error occurred during deletion"
+      },
+      "DELETE_TITLE": "Confirm Delete"
+    },
+    "SHARED": {
+    "TOTAL": "Total Records",
+    "Add_NEW": "Add New",
+    "REFRESH": "Refresh",
+    "ACTIONS": "Actions",
+    "RELATED_DETAILS": "Related Details",
+    "DETAIL": "View Details",
+    "VIEW": "History",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "NO_DATA_FOUND": "No data found"
+  }
+
+}

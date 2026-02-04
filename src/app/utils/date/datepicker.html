@@ -1,0 +1,12 @@
+<!-- <app-datepicker-english *ngIf="(lang$ | async).startsWith('en'); else ar" [selectDate]="selectDate">
+</app-datepicker-english>
+
+<ng-template #ar>
+  <app-datepicker-islamiccivil [selectDate]="selectDate"></app-datepicker-islamiccivil>
+</ng-template> -->
+<ngb-datepicker
+  [(ngModel)]="model"
+  [firstDayOfWeek]="7">
+</ngb-datepicker>
+
+

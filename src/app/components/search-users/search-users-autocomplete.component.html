@@ -1,0 +1,21 @@
+<ng-select [items]="users" bindLabel="name" bindValue="id" [formControl]="searchUsersControl" [loading]="loading"
+    (search)="searchUsers($event.term)" (clear)="onClear()" [multiple]="multiple" [closeOnSelect]="!multiple"
+    (change)="selectedUsers($event)" [searchFn]="customSearch" [placeholder]="'search'| translate">
+    <!-- Template for displaying each item in the dropdown -->
+    <ng-template ng-label-tmp let-item="item">
+        <div class="user-item">
+            <!-- <img brokenImage [src]="baseUrl+item.image" alt="Profile" class="user-avatar" /> -->
+            <span class="user-name">{{ item.name }}</span>
+            <span class="user-email">{{ item.email }}</span>
+        </div>
+    </ng-template>
+
+    <!-- Template for selected item -->
+    <ng-template ng-option-tmp let-item="item">
+        <div class="user-item">
+            <img brokenImage [src]="baseUrl+item.image" alt="Profile" class="user-avatar" />
+            <span class="user-name">{{ item.name }}</span>
+            <span class="user-email">{{ item.email }}</span>
+        </div>
+    </ng-template>
+</ng-select>

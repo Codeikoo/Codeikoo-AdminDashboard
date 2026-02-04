@@ -1,0 +1,31 @@
+<div class="mb-3">
+    <label for="dropzone" class="mb-2">
+        {{label| translate}}
+        <span *ngIf="required" class="text-danger">*</span>
+    </label>
+    <div id="dropzone" class="dropzone mb-4" [dropzone]="config" (addedFile)="onFileAdded($event)"
+        (removedFile)="removeFile($event)">
+    </div>
+    <button class="btn btn-secondary mt-2 d-block ms-auto mb-3" type="button" (click)="resetDropzoneUploads()"
+        *ngIf="files.length > 5">
+        {{'reset'| translate}}
+    </button>
+
+    <div class="images">
+        <div class="row ">
+            <div class="col-12 col-md-3" *ngFor="let imageUrl of existingUrls">
+                <div class="image mb-3 position-relative overflow-hidden rounded-3">
+                    <img [src]="baseUrl+imageUrl" *ngIf="imageUrl && imageUrl.length" class="w-100 h-100 ">
+                    <div
+                        class="layout position-absolute top-0 left-0 right-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center">
+                        <button class="btn btn-danger btn-lg" (click)="removeImage(imageUrl)">
+                            <i class="feather icon-trash-2 btn-icon-prepend me-1"></i>
+                            {{'delete' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

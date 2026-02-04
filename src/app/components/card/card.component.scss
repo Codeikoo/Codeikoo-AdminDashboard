@@ -1,0 +1,13 @@
+img {
+  min-height: 256px;
+  max-height: 256px;
+  object-position: center;
+  object-fit: cover;
+}
+
+.card {
+  transition: ease-in-out all 0.1s;
+  &:hover {
+    transform: translateY(-8px);
+  }
+}

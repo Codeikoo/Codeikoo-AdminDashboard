@@ -1,0 +1,107 @@
+<div class="w-100 searchable-dd">
+
+  <!-- Label -->
+  @if (label) {
+    <label class="form-label">{{ label | translate }}</label>
+  }
+
+  <!-- Input group -->
+  <div
+    class="input-group"
+    [class.has-icon]="!!icon"
+  >
+    <!-- Prefix Icon -->
+    @if (icon) {
+      <span class="input-group-text">
+        <mat-icon class="prefix-icon">{{ icon }}</mat-icon>
+      </span>
+    }
+
+    <!-- Input Field (same logic) -->
+    <input
+      matInput
+      class="form-control custom-input"
+      [formControl]="formControl"
+      [matAutocomplete]="auto"
+      [placeholder]="placeholder"
+      (click)="openPanel()"
+      readonly
+      aria-label="Dropdown input"
+    />
+
+    <!-- Suffix Arrow -->
+    <button
+      type="button"
+      class="btn btn-outline-secondary d-flex align-items-center"
+      (click)="togglePanel()"
+      aria-label="Toggle dropdown"
+    >
+      <mat-icon class="dropdown-arrow" [class.rotated]="panelOpen">
+        expand_more
+      </mat-icon>
+    </button>
+  </div>
+
+  <!-- Autocomplete Panel (same logic, kept as-is) -->
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+    class="custom-autocomplete"
+    (opened)="panelOpen = true"
+    (closed)="panelOpen = false"
+  >
+    <!-- Search Box (same logic, minimal layout tweaks only) -->
+    <mat-form-field
+      appearance="outline"
+      class="w-100 mb-3 search-field-wrapper"
+    >
+      <mat-icon matPrefix class="search-icon">search</mat-icon>
+
+      <input
+        #searchInput
+        matInput
+        [formControl]="searchControl"
+        placeholder="{{ 'COMMON.SEARCH' | translate }}"
+        (click)="$event.stopPropagation()"
+        class="search-input"
+        autocomplete="off"
+        aria-label="Search"
+      />
+
+      @if (searchControl.value) {
+        <button
+          matSuffix
+          mat-icon-button
+          type="button"
+          class="icon-only-btn"
+          (click)="searchControl.setValue(''); $event.stopPropagation()"
+          aria-label="Clear search"
+        >
+          <mat-icon class="close-icon">close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+
+    <!-- Items -->
+    <div class="items-container">
+      @for (item of filteredItems$ | async; track item.id) {
+        <mat-option [value]="item.id" class="dropdown-item">
+          <div class="item-content">
+            <span class="item-text">{{ item.text }}</span>
+          </div>
+        </mat-option>
+      }
+    </div>
+
+    <!-- No results -->
+    @if ((filteredItems$ | async)?.length === 0) {
+      <mat-option disabled class="no-results-option">
+        <div class="no-results-content">
+          <mat-icon class="no-results-icon">search_off</mat-icon>
+          <span class="no-results-text">{{ "COMMON.NO_RESULTS" | translate }}</span>
+        </div>
+      </mat-option>
+    }
+  </mat-autocomplete>
+
+</div>

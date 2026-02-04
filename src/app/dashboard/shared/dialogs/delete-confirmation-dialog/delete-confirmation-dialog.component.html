@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>
+    <mat-icon class="warning-icon">warning</mat-icon>
+    {{ data.title }}
+</h2>
+
+<mat-dialog-content>
+    <div class="confirmation-message">
+        <p>{{ data.message }}</p>
+        @if (data.itemName) {
+        <p class="item-name">
+            <strong>{{ data.itemName }}</strong>
+        </p>
+        }
+        <p class="warning-text">{{ 'CATEGORIES.MESSAGES.DELETE_WARNING' | translate }}</p>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">
+        <mat-icon>close</mat-icon>
+        {{ 'CATEGORIES.BUTTONS.CANCEL' | translate }}
+    </button>
+    <button mat-raised-button class="danger-btn" (click)="onConfirm()">
+        <mat-icon>delete</mat-icon>
+        {{ 'CATEGORIES.BUTTONS.DELETE' | translate }}
+    </button>
+</mat-dialog-actions>

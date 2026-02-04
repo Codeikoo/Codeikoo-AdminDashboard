@@ -1,0 +1,36 @@
+<!--* ================ G L O B A L  F O R M  F I E L D  ================ -->
+<div class="mb-3" *ngIf="control">
+    <!--* ================ L A B E L  ================ -->
+    <label [for]="inputId" class="form-label text-capitalize fw-bold">
+        {{label| translate}}
+        <span *ngIf="required" class="text-danger">*</span>
+
+    </label>
+
+    <!--* ================ T E X T  A R E A   ================ -->
+    <textarea class="form-control" [id]="inputId" [placeholder]="placeholder | translate" [formControl]="control"
+        rows="5"></textarea>
+
+
+    <!--* ================ E R R O R S ================ -->
+    <ng-container *ngIf="control.touched">
+        <!--* ================ R E Q U I R E D   E R R O R ================ -->
+        <p class="text-danger mt-1 fw-bold text-capitalize"
+            *ngIf="required && checkFormControlError(control, 'required') ">
+            {{ 'required_error' | translate:{ label: label | translate } }}
+        </p>
+
+        <!--* ================ P A T T E R N   E R R O R ================ -->
+        <p class="text-danger mt-1 fw-bold text-capitalize"
+            *ngIf="patternValidator && checkFormControlError(control, 'pattern')">
+            {{ 'pattern_error' | translate:{ label: label | translate } }}
+        </p>
+
+        <!--* ================ M I N  L E N G T H   E R R O R ================ -->
+        <p class="text-danger mt-1 fw-bold text-capitalize"
+            *ngIf="minLength > 0 && checkFormControlError(control, 'minlength')">
+            {{ 'minLength_error' | translate:{ label: label | translate } }}
+        </p>
+
+    </ng-container>
+</div>

@@ -1,0 +1,8 @@
+<section class="mb-3" *ngIf="control">
+    <label for="quill-editor" class="mb-2">{{label| translate}}
+        <span *ngIf="required" class="text-danger">*</span>
+
+    </label>
+    <quill-editor [formControl]="control">
+    </quill-editor>
+</section>

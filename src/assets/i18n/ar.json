@@ -1,0 +1,82 @@
+{
+
+"copyright": "جميع الحقوق محفوظة © 2026. تم التطوير بواسطة فريقنا",
+  "ACADMY": {
+    "JOBS": {
+      "ROUTING": {
+        "CREATE_TITLE": "إنشاء وظيفة",
+        "EDIT_TITLE": "تعديل وظيفة"
+      },
+      "FORM": {
+        "TITLE_AR": "العنوان بالعربية",
+        "TITLE_EN": "العنوان بالإنجليزية",
+        "DESCRIPTION_AR": "الوصف بالعربية",
+        "DESCRIPTION_EN": "الوصف بالإنجليزية",
+        "LOCATION": "الموقع",
+        "EMPLOYMENT_TYPE": "نوع التوظيف",
+        "POSTED_AT": "تاريخ النشر",
+        "REQ_AR": "المتطلبات بالعربية",
+        "REQ_EN": "المتطلبات بالإنجليزية",
+        "REQ_ITEM": "متطلب"
+      },
+      "ACTIONS": {
+        "ADD_REQUIREMENT": "إضافة متطلب"
+      },
+      "ERRORS": {
+        "TITLE_AR_REQUIRED": "العنوان العربي مطلوب",
+        "TITLE_AR_ONLY_AR": "العنوان العربي يجب أن يكون عربي فقط (بدون حروف إنجليزية)",
+        "TITLE_EN_REQUIRED": "العنوان الإنجليزي مطلوب",
+        "TITLE_EN_ONLY_EN": "العنوان الإنجليزي يجب أن يكون إنجليزي فقط (بدون حروف عربية)",
+        "DESCRIPTION_AR_REQUIRED": "الوصف العربي مطلوب",
+        "DESCRIPTION_EN_REQUIRED": "الوصف الإنجليزي مطلوب",
+        "LOCATION_REQUIRED": "الموقع مطلوب",
+        "EMPLOYMENT_TYPE_REQUIRED": "نوع التوظيف مطلوب",
+        "POSTED_AT_REQUIRED": "تاريخ النشر مطلوب",
+        "REQUIREMENT_REQUIRED": "هذا المتطلب مطلوب",
+        "REQ_MIN_ONE": "لازم تدخل متطلب واحد على الأقل"
+      },
+      "MESSAGES": {
+        "CREATED_SUCCESS": "تم إنشاء الوظيفة بنجاح",
+        "UPDATED_SUCCESS": "تم تعديل الوظيفة بنجاح",
+        "ERROR_LOADING": "حدث خطأ أثناء تحميل البيانات",
+        "ERROR_SAVING": "حدث خطأ أثناء حفظ البيانات"
+      },
+      "EMPLOYMENT_TYPES": {
+        "FULL_TIME": "دوام كامل",
+        "PART_TIME": "دوام جزئي",
+        "CONTRACT": "تعاقد",
+        "INTERNSHIP": "تدريب"
+      }
+    }
+  },
+  "INDUSTORYORDER": {
+    "WC": {
+      "TABLE": {
+        "NAME": "اسم الوظيفة",
+        "WC_CODE": "الوصف",
+        "WC_TYPE": "الموقع"
+      },
+      "MESSAGES": {
+        "ERROR_LOADING": "خطأ أثناء تحميل البيانات",
+        "DELETED_SUCCESS": "تم الحذف بنجاح",
+        "ERROR_DELETING": "حدث خطأ أثناء محاولة الحذف"
+      },
+      "DELETE_TITLE": "تأكيد الحذف"
+    }
+  },
+  
+  "SHARED": {
+    "TOTAL": "إجمالي السجلات",
+    "Add_NEW": "إضافة جديد",
+    "REFRESH": "تحديث",
+    "ACTIONS": "العمليات",
+    "RELATED_DETAILS": "التفاصيل ذات الصلة",
+    "DETAIL": "عرض التفاصيل",
+    "VIEW": "سجل الحركات",
+    "EDIT": "تعديل",
+    "DELETE": "حذف",
+    "NO_DATA_FOUND": "لم يتم العثور على بيانات"
+  }
+}
+
+

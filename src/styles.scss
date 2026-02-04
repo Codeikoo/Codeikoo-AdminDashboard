@@ -1,0 +1,171 @@
+@use '@angular/material' as mat;
+
+// ==========================================================================
+// 1. إعدادات الألوان والهوية البصرية (Custom Palette)
+// ==========================================================================
+$royal-blue: #0909DB;
+$soft-bg: #f4f7fe; // خلفية مريحة للعين للـ Dashboard
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: -1, // تقليل الكثافة ليعطي مساحة تنفس (White space) أكبر
+  ));
+
+  // تعريف متغيرات CSS عالمية لتسهيل الاستخدام في كل مكان
+  --primary-color: #{$royal-blue};
+  --primary-hover: #05052b;
+  --bg-dashboard: #{$soft-bg};
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --border-radius: 12px;
+}
+
+// ==========================================================================
+// 2. إعدادات الجسم والخطوط (Body & Typography)
+// ==========================================================================
+body {
+  color-scheme: light;
+  background-color: var(--bg-dashboard); // استخدام لون الخلفية المريح
+  color: #1e293b;
+  margin: 0;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// دعم خط القاهرة للعربي والـ Roboto للإنجليزي
+body.rtl-mode {
+  font-family: 'Cairo', sans-serif !important;
+  direction: rtl;
+}
+
+body.ltr-mode {
+  font-family: 'Poppins', 'Roboto', sans-serif !important;
+  direction: ltr;
+}
+
+// ==========================================================================
+// 3. تحسين الـ Scrollbar ليكون أنيقاً (Modern Scrollbar)
+// ==========================================================================
+* {
+  --sb-track-color: transparent;
+  --sb-thumb-color: rgba(9, 9, 219, 0.2);
+  --sb-size: 6px;
+}
+
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+  transition: background 0.3s;
+
+  &:hover {
+    background: var(--primary-color); // يتغير لونه عند الوقوف عليه
+  }
+}
+
+// ==========================================================================
+// 4. استيراد المكتبات الخارجية (Third Party)
+// ==========================================================================
+@import "perfect-scrollbar/css/perfect-scrollbar.css";
+@import "highlight.js/styles/googlecode.css";
+@import "@ng-select/ng-select/themes/default.theme.css";
+@import "metismenujs/scss/metismenujs";
+@import "~@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
+
+// ==========================================================================
+// 5. تعديلات عامة على العناصر (UI Components Overrides)
+// ==========================================================================
+h1, h2, h3, h4, h5, h6 {
+  color: #000865;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+// تحسين الـ Cards لتكون مريحة للعين
+.card {
+  border: none !important;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+// تعديل الـ Tabs لتناسب الديزاين الجديد
+.nav-tabs {
+  border-bottom: 2px solid #edf2f7;
+  margin-bottom: 1.5rem;
+
+  .nav-link {
+    border: none;
+    color: #64748b;
+    font-weight: 600;
+    padding: 12px 20px;
+
+    &.active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      background: transparent;
+    }
+  }
+}
+
+// تحسين شكل الـ Inputs في كل الموقع
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 1rem;
+
+  &:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(9, 9, 219, 0.1);
+  }
+}
+
+// لتقليل التشتت البصري
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+
+  &:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+}
+
+// إخفاء اللودر عند التحميل
+#global-loader {
+  position: fixed;
+  z-index: 9999;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease;
+
+  &.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

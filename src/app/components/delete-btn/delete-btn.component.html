@@ -1,0 +1,8 @@
+<ng-container *ngIf="haveDeleteRoleOnPage">
+    <button class="btn btn-danger " placement="bottom" [ngbTooltip]="'delete'| translate">
+        <i class="feather icon-trash-2 btn-icon-prepend "></i>
+        <ng-container *ngIf="isLabelShow">
+            {{'delete'| translate}}
+        </ng-container>
+    </button>
+</ng-container>

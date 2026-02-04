@@ -1,0 +1,98 @@
+<div class="log-change-details-dialog" [attr.dir]="direction()">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content" [attr.dir]="direction()">
+
+            <div class="header-text">
+                <h2 mat-dialog-title>{{ 'ENTITY_LOGS.TITLE' | translate }}</h2>
+
+            </div>
+        </div>
+        <button mat-icon-button (click)="close()" class="close-button">
+            <!-- <i-tabler name="x" class="icon-20"></i-tabler> -->
+        </button>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Content -->
+    <div mat-dialog-content class="dialog-content">
+
+
+
+
+        <!-- Changes Section -->
+        @if (hasChanges()) {
+        <div class="changes-section">
+            <div class="section-header">
+                <!-- <i-tabler name="git-compare" class="icon-20"></i-tabler> -->
+                <h3>{{ 'ENTITY_LOGS.CHANGES_TITLE' | translate }} ({{ data.log.changes.length }})</h3>
+            </div>
+
+            <div class="changes-list">
+                @for (change of data.log.changes; track change.fieldName) {
+                <div class="change-card" [class]="getChangeClass(change.oldValue, change.newValue)">
+                    <div class="change-header">
+                        <div class="field-name">
+                            <!-- <i-tabler [name]="getChangeIcon(change.oldValue, change.newValue)"
+                                class="icon-16"></i-tabler> -->
+                            <span>{{ change.fieldName }}</span>
+                        </div>
+                    </div>
+
+                    <div class="change-comparison">
+                        <!-- Old Value -->
+                        <div class="value-container old-value-container">
+                            <div class="value-label">
+                                <!-- <i-tabler name="arrow-forward-up" class="icon-14 dir-icon"></i-tabler> -->
+                                <span>{{ 'ENTITY_LOGS.OLD_VALUE' | translate }}</span>
+                            </div>
+                            <div class="value-content">
+                                @if (change.oldValue && change.oldValue !== 'null' && change.oldValue !== '-') {
+                                <span class="value-text">{{ change.oldValue }}</span>
+                                } @else {
+                                <span class="value-empty">{{ 'ENTITY_LOGS.NO_VALUE' | translate }}</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="arrow-separator">
+                            <!-- <i-tabler name="arrow-narrow-right" class="icon-24 arrow-icon"></i-tabler> -->
+                        </div>
+
+                        <!-- New Value -->
+                        <div class="value-container new-value-container">
+                            <div class="value-label">
+                                <!-- <i-tabler name="arrow-back-up" class="icon-14 dir-icon"></i-tabler> -->
+                                <span>{{ 'ENTITY_LOGS.NEW_VALUE' | translate }}</span>
+                            </div>
+                            <div class="value-content">
+                                @if (change.newValue && change.newValue !== 'null' && change.newValue !== '-') {
+                                <span class="value-text">{{ change.newValue }}</span>
+                                } @else {
+                                <span class="value-empty">{{ 'ENTITY_LOGS.NO_VALUE' | translate }}</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        } @else {
+        <div class="no-changes">
+            <!-- <i-tabler name="info-circle" class="icon-48"></i-tabler> -->
+            <p>{{ 'ENTITY_LOGS.NO_CHANGES' | translate }}</p>
+        </div>
+        }
+    </div>
+
+    <!-- Footer -->
+    <mat-divider></mat-divider>
+    <div mat-dialog-actions class="dialog-actions">
+        <button mat-raised-button (click)="close()">
+            {{ 'COMMON.CLOSE' | translate }}
+        </button>
+    </div>
+</div>

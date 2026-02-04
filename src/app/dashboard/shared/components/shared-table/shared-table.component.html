@@ -1,0 +1,373 @@
+<!-- PAGE SHELL -->
+@if (showSearch() || showTitle() || showCreateBtn() || showRefreshBtn() || showBack()) {
+  <section class="erp-shell">
+
+    <!-- HERO TITLE BAR -->
+    @if (showTitle()) {
+      <div class="erp-hero" (click)="onTitleClick()">
+        <div class="hero-content">
+          <div class="hero-title">
+            <h2 class="m-0">{{ title() }}</h2>
+            <span class="hero-sub">
+              {{ "SHARED.TOTAL" | translate }}: <b>{{ totalRecords() }}</b>
+            </span>
+          </div>
+
+          <div class="hero-actions">
+            @if (showBack()) {
+              <button class="hero-icon-btn" mat-icon-button (click)="onBack(); $event.stopPropagation()">
+                <mat-icon>{{ currentLang === "ar" ? "arrow_forward" : "arrow_back" }}</mat-icon>
+              </button>
+            }
+
+            @if (showRefreshBtn()) {
+              <button class="hero-icon-btn hero-refresh" (click)="onRefresh(); $event.stopPropagation()">
+                <mat-icon>refresh</mat-icon>
+              </button>
+            }
+
+            @if (!isLog && showCreateBtn()) {
+              <button (click)="onCreate(); $event.stopPropagation()" class="hero-cta">
+                <mat-icon>add</mat-icon>
+                <span>{{ "SHARED.Add_NEW" | translate }}</span>
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- CONTROL PANEL -->
+    <div class="erp-panel">
+      <div class="panel-row">
+
+        <!-- LEFT: status chips / tools -->
+        <div class="panel-left">
+          <span class="panel-chip">
+            <mat-icon class="chip-ic">dataset</mat-icon>
+            {{ "SHARED.TOTAL" | translate }} {{ totalRecords() }}
+          </span>
+
+          @if (isLog) {
+            <!-- for log mode keep tools minimal -->
+            @if (showRefreshBtn()) {
+              <button class="panel-mini-btn" (click)="onRefresh()">
+                <mat-icon>refresh</mat-icon>
+                <span>{{ "SHARED.REFRESH" | translate }}</span>
+              </button>
+            }
+          }
+        </div>
+
+        <!-- CENTER: Search -->
+        <div class="panel-center">
+          @if (showSearch()) {
+            <div class="search-pill">
+              <i-tabler name="search" class="search-ic"></i-tabler>
+              <input
+                type="text"
+                class="search-input"
+                [value]="currentSearchValue()"
+                (input)="onSearchInput($event)"
+                (keyup)="onSearchKeyUp($event)"
+                placeholder="{{ 'SEARCH' | translate }}"
+              />
+              <span class="search-hint">{{ currentLang === "ar" ? "اكتب للبحث..." : "Type to search..." }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- RIGHT: Create (non-log mode) -->
+        <div class="panel-right">
+          @if (!isLog && showCreateBtn()) {
+            <button (click)="onCreate()" class="panel-primary-btn">
+              <mat-icon>add</mat-icon>
+              {{ "SHARED.Add_NEW" | translate }}
+            </button>
+          }
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+}
+
+<!-- TABLE / EMPTY STATE -->
+<div class="erp-grid-wrap">
+
+  @if (dataSource().filteredData.length !== 0) {
+    <div class="erp-grid-card">
+      <div class="grid-scroll">
+        <table mat-table [dataSource]="dataSource()" matSort (matSortChange)="onSortChange($event)" class="erp-grid">
+
+          <!-- Dynamic Columns -->
+          @for (column of columns(); track column.key; let i = $index) {
+            <ng-container [matColumnDef]="column.key">
+
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                disableClear
+                [mat-sort-header]="column.key"
+                [disabled]="!isSortable(column)"
+                [style.width]="column.width"
+                sticky
+                class="grid-th"
+                [class.th-strong]="column.boldHeader"
+              >
+                <div class="th-inner">
+                  <span class="th-title">{{ column.title }}</span>
+                  <span class="th-divider"></span>
+                </div>
+              </th>
+
+              <td
+                mat-cell
+                *matCellDef="let row"
+                [style.width]="column.width"
+                class="grid-td"
+                [class.td-strong]="column.boldHeader"
+              >
+                <div
+                  class="cell-content"
+                  [style.padding-inline-start.px]="i === 0 && isTreeTable() ? (row.level || 0) * 32 : null"
+                >
+
+                  @if (i === 0 && isTreeTable()) {
+                    <span class="tree-slot">
+                      @if (row.isContainChild) {
+                        <button
+                          class="tree-toggle-btn"
+                          (click)="toggleRow.emit(row); $event.stopPropagation()"
+                          type="button"
+                        >
+                          <mat-icon>
+                            {{
+                              row.expanded
+                                ? "keyboard_arrow_down"
+                                : currentLang === "ar"
+                                ? "keyboard_arrow_left"
+                                : "keyboard_arrow_right"
+                            }}
+                          </mat-icon>
+                        </button>
+                      }
+                    </span>
+                  }
+
+                  @if (column.actionButton) {
+                    @let btn = typeof column.actionButton === 'function' ? column.actionButton(row) : column.actionButton;
+
+                    <button
+                      class="cell-pill-btn"
+                      mat-stroked-button
+                      (click)="btn.callback(row); $event.stopPropagation()"
+                    >
+                      {{ btn.label }}
+                      <mat-icon class="pill-ic">open_in_new</mat-icon>
+                    </button>
+
+                  } @else if (column.toggle) {
+
+                    <button
+                      type="button"
+                      class="toggle-dot"
+                      [ngClass]="{
+                        'toggle-on': getNestedValue(row, column.key),
+                        'toggle-off': !getNestedValue(row, column.key)
+                      }"
+                      (click)="onStatusClick(row, column); $event.stopPropagation()"
+                      [attr.aria-label]="getNestedValue(row, column.key) ? 'active' : 'inactive'"
+                    ></button>
+
+                  } @else if (column.routeButton) {
+
+                    <button
+                      mat-icon-button
+                      class="route-ic-btn"
+                      (click)="goToRoute(row, column); $event.stopPropagation()"
+                      [matTooltip]="
+                        typeof column.routeButton.label === 'function'
+                          ? column.routeButton.label(row)
+                          : column.routeButton.label
+                      "
+                    >
+                      <mat-icon>{{ column.routeButton.icon || "open_in_new" }}</mat-icon>
+                    </button>
+
+                  } @else if (column.statusMap) {
+
+                    @let value = getNestedValue(row, column.key);
+                    @let status = column.statusMap[value];
+
+                    <span class="status-pill" [ngClass]="status?.class">
+                      {{ (status?.label ?? '') | translate }}
+                    </span>
+
+                  } @else if (column.select) {
+
+                    <mat-form-field appearance="outline" class="cell-select" (click)="$event.stopPropagation()">
+                      <mat-select
+                        [value]="getNestedValue(row, column.key)"
+                        [disabled]="column.select.disabled ? column.select.disabled(row) : false"
+                        (selectionChange)="onCellSelectChange(row, column, $event.value)"
+                      >
+                        @for (opt of column.select.options; track opt.value) {
+                          <mat-option [value]="opt.value">
+                            {{ opt.label | translate }}
+                          </mat-option>
+                        }
+                      </mat-select>
+                    </mat-form-field>
+
+                  } @else {
+
+                    <span
+                      class="cell-text"
+                      [matTooltip]="getNestedValue(row, column.key) || '-'"
+                      matTooltipPosition="above"
+                    >
+                      {{ formatValue(row, column) }}
+                    </span>
+
+                  }
+
+                </div>
+              </td>
+            </ng-container>
+          }
+
+          <!-- Actions Column -->
+          @if (hasActions()) {
+            <ng-container matColumnDef="actions">
+
+              <th mat-header-cell *matHeaderCellDef sticky class="grid-th">
+                <div class="th-inner">
+                  <span class="th-title">{{ "SHARED.ACTIONS" | translate }}</span>
+                  <span class="th-divider"></span>
+                </div>
+              </th>
+
+              <td mat-cell *matCellDef="let element" class="grid-td" (click)="$event.stopPropagation()">
+                <div class="actions-tray">
+
+                  @if (actions()?.paymentDetail) {
+                    <button
+                      class="act act-soft"
+                      (click)="onPaymentDetail(element); $event.stopPropagation()"
+                      matTooltip="{{ 'SHARED.RELATED_DETAILS' | translate }}"
+                    >
+                      <i-tabler name="file-invoice" class="icon-18"></i-tabler>
+                    </button>
+                  }
+
+                  @if (actions()?.custom) {
+                    @for (action of actions()!.custom; track action.tooltip) {
+                      @if (!action.condition || action.condition(element)) {
+                        <button
+                          class="act"
+                          [class.act-primary]="action.color === 'primary'"
+                          [class.act-accent]="action.color === 'accent'"
+                          [class.act-warn]="action.color === 'warn'"
+                          (click)="onCustomAction(action, element); $event.stopPropagation()"
+                          matTooltip="{{ action.tooltip }}"
+                        >
+                          <i-tabler [name]="action.icon" class="icon-18"></i-tabler>
+                        </button>
+                      }
+                    }
+                  }
+
+                  @if (actions()?.detail) {
+                    <button
+                      class="act act-primary"
+                      (click)="onDetail(element); $event.stopPropagation()"
+                      matTooltip="{{ 'SHARED.DETAIL' | translate }}"
+                    >
+                      <i-tabler name="eye" class="icon-18"></i-tabler>
+                    </button>
+                  }
+
+                  @if (actions()?.view) {
+                    <button
+                      class="act act-soft"
+                      (click)="onView(element); $event.stopPropagation()"
+                      matTooltip="{{ 'SHARED.VIEW' | translate }}"
+                    >
+                      <i-tabler name="history" class="icon-18"></i-tabler>
+                    </button>
+                  }
+
+                  @if (actions()?.edit) {
+                    <button
+                      class="act act-warn"
+                      (click)="onEdit(element); $event.stopPropagation()"
+                      matTooltip="{{ 'SHARED.EDIT' | translate }}"
+                    >
+                      <i-tabler name="edit" class="icon-18"></i-tabler>
+                    </button>
+                  }
+
+                  @if (actions()?.delete) {
+                    <button
+                      class="act act-danger"
+                      (click)="onDelete(element); $event.stopPropagation()"
+                      matTooltip="{{ 'SHARED.DELETE' | translate }}"
+                    >
+                      <i-tabler name="trash" class="icon-18"></i-tabler>
+                    </button>
+                  }
+
+                </div>
+              </td>
+
+            </ng-container>
+          }
+
+          <!-- Header & Rows -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns()" class="grid-header-row"></tr>
+
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns()"
+            class="grid-row cursor-pointer"
+            (click)="onDetail(row)"
+          ></tr>
+
+        </table>
+
+        <!-- Pagination -->
+        <mat-paginator
+          [pageSize]="pageSize()"
+          [pageSizeOptions]="pageSizeOptions()"
+          [length]="serverSidePagination() ? totalRecords() : dataSource().data.length"
+          [pageIndex]="currentPage()"
+          (page)="onPageChange($event)"
+          [showFirstLastButtons]="true"
+          class="grid-paginator mat-elevation-z0"
+        ></mat-paginator>
+
+      </div>
+    </div>
+
+  } @else {
+
+    <div class="empty-splash">
+      <div class="empty-card">
+        <mat-icon class="empty-ic">search_off</mat-icon>
+        <h2>{{ "SHARED.NO_DATA_FOUND" | translate }}</h2>
+        <p>{{ currentLang === "ar" ? "جرّب تغيير كلمات البحث أو تحديث الصفحة." : "Try adjusting your search or refresh." }}</p>
+
+        @if (showRefreshBtn()) {
+          <button class="panel-primary-btn" (click)="onRefresh()">
+            <mat-icon>refresh</mat-icon>
+            {{ "SHARED.REFRESH" | translate }}
+          </button>
+        }
+      </div>
+    </div>
+
+  }
+
+</div>

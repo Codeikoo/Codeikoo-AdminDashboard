@@ -1,0 +1,29 @@
+<!--* ================ G L O B A L  D A T E  P I C K E R  I N P U T  F I E L D  ================ -->
+<div class="mb-3">
+    <!--* ================ L A B E L  ================ -->
+    <label [for]="inputId" class="form-label text-capitalize fw-bold" *ngIf="label && label.length">
+        {{label| translate}}
+        <span *ngIf="required" class="text-danger">*</span>
+
+    </label>
+
+    <!--* ================ I N P U T  ================ -->
+    <div class="input-group">
+        <input class="form-control" name="dp" ngbDatepicker  [id]="inputId"
+            [placeholder]="placeholder | translate" [formControl]="control"  />
+        <button class="btn btn-outline-primary" type="button" >
+            <i class="feather icon-calendar btn-icon-prepend me-1"></i>
+        </button>
+    </div>
+    <!--* ================ R E Q U I E R D   E R R O R  ================ -->
+    <p class="text-danger mt-1 fw-bold text-capitalize" *ngIf="control.touched && control.hasError('required')">
+        {{ 'required_error' | translate:{ label: label | translate } }}
+    </p>
+</div>
+
+
+<ng-template #footerTemplate>
+    <hr class="my-0" />
+    <button class="btn btn-primary btn-sm m-2 float-start" (click)="model = today; ">Today</button>
+    <button class="btn btn-secondary btn-sm m-2 float-end" >Close</button>
+</ng-template>
